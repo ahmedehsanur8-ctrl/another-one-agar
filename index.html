@@ -199,9 +199,15 @@ html.lock{position:relative;overflow:hidden;height:100%}
 
 /* ---------- lap (season) ---------- */
 [data-season]{container-type:inline-size;position:relative;isolation:isolate;min-height:var(--season-h,100lvh);overflow:hidden;background:var(--surface-black);color:var(--foreground-on-dark)}
-.stage-frame{position:absolute;inset:0;overflow:hidden;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 10%,#000 90%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 10%,#000 90%,transparent 100%)}
-.stage{position:absolute;left:0;top:0;width:1440px;height:800px;transform-origin:top left}
-.stage canvas{position:absolute;inset:0;width:1440px;height:800px}
+.film{position:absolute;inset:0;overflow:hidden}
+.film video,.film canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.film video{filter:sepia(1) saturate(1.6) hue-rotate(-12deg) brightness(.62) contrast(1.15)}
+.film.gl video{visibility:hidden}
+.film-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgb(9 10 11/.9) 0%,rgb(9 10 11/.55) 32%,rgb(9 10 11/0) 62%),linear-gradient(0deg,rgb(9 10 11/.8) 0%,rgb(9 10 11/0) 32%)}
+.film-link{pointer-events:auto;display:inline-flex;align-items:center;gap:.6em;margin-top:1.5rem;font-size:max(.9722cqw,13px);text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--accent-muted);padding-bottom:.3em;transition:border-color 150ms}
+.film-link .arr{width:.9em;height:.7em;stroke:currentColor;fill:none;transition:transform 150ms}
+.film-link:hover{border-color:var(--accent)}.film-link:hover .arr{transform:translateX(.25rem)}
+@media (max-width:639px){.film-shade{background:linear-gradient(180deg,rgb(9 10 11/.85) 0%,rgb(9 10 11/.3) 45%,rgb(9 10 11/.75) 100%)}}
 .season-col{position:relative;z-index:20;min-height:var(--season-h,100lvh);display:flex;flex-direction:column;justify-content:space-between;gap:4rem;padding:4.8611cqw 1.5rem 2rem;pointer-events:none}
 @media (min-width:640px){.season-col{padding:4.8611cqw max(2.2222cqw,var(--gutter-min,0px)) max(2.2222cqw,var(--gutter-min,0px))}}
 .h-dark{font-family:var(--font-display);font-weight:700;text-transform:uppercase;line-height:.95;color:var(--accent);font-size:max(3.8194cqw,var(--head-min,0px))}
@@ -218,7 +224,7 @@ html.lock{position:relative;overflow:hidden;height:100%}
 .pst div{display:flex;gap:.35em;white-space:nowrap}
 .pst dt{color:var(--accent)}
 .pst .tx{column-gap:0;flex-wrap:nowrap}
-@media (max-width:1023px){[data-season]{--gutter-min:32px;--type-min:13px;--copy-min-size:17px;--copy-min-w:15rem;--head-min:6.6667cqw;--plate-w:277px;--plate-h:78px;--plate-cell:83px;--plate-badge-gap:11px;--plate-globe-w:37px;--plate-globe-h:23px;--plate-stats-left:16px;--plate-stats-gap:8px;--plate-eyebrow:12px;--plate-body:14px}.stage-frame{-webkit-mask-image:none;mask-image:none}}
+@media (max-width:1023px){[data-season]{--gutter-min:32px;--type-min:13px;--copy-min-size:17px;--copy-min-w:15rem;--head-min:6.6667cqw;--plate-w:277px;--plate-h:78px;--plate-cell:83px;--plate-badge-gap:11px;--plate-globe-w:37px;--plate-globe-h:23px;--plate-stats-left:16px;--plate-stats-gap:8px;--plate-eyebrow:12px;--plate-body:14px}}
 @media (max-width:639px){[data-season]{--head-min:40px;--head-air:20px;--season-h:680px}}
 
 /* ---------- timeline ---------- */
@@ -418,7 +424,7 @@ html.lock{position:relative;overflow:hidden;height:100%}
             </a>
             <nav class="nav" aria-label="Primary">
               <ul>
-                <li><a href="#lap">Origin</a></li>
+                <li><a href="#lap">Film</a></li>
                 <li><a href="#steps">Tree to oil</a></li>
                 <li><a href="#grades">grades</a></li>
                 <li><a href="#wholesale">wholesale</a></li>
@@ -494,28 +500,33 @@ html.lock{position:relative;overflow:hidden;height:100%}
   <div class="layer">
     <div class="layer-inner">
       <section data-season id="lap" aria-labelledby="lapHead">
-        <div class="stage-frame" aria-hidden="true"><div class="stage" id="stage"><canvas id="mapCanvas"></canvas><canvas id="traceCanvas"></canvas></div></div>
+        <div class="film" id="film" aria-hidden="true">
+          <video id="filmVideo" muted loop playsinline preload="metadata" poster="assets/video/poster-wide.webp"></video>
+          <canvas id="filmCanvas"></canvas>
+          <div class="film-shade"></div>
+        </div>
         <canvas class="flag" data-carry="light" aria-hidden="true"></canvas>
         <div class="season-col">
           <div>
             <h2 class="h-dark" id="lapHead">
-              <span class="sr-only">Where the oil is made.</span>
-              <span class="tx" data-split="words" data-delay="0" aria-hidden="true">where the</span>
-              <span style="display:flex;flex-wrap:wrap" aria-hidden="true"><span class="tx" data-split="words" data-delay="130" style="display:inline-flex">oil is made</span><span class="dot-w rv" data-fade="240">.</span></span>
+              <span class="sr-only">12 million views.</span>
+              <span class="tx" data-split="words" data-delay="0" aria-hidden="true">12 million</span>
+              <span style="display:flex;flex-wrap:wrap" aria-hidden="true"><span class="tx" data-split="words" data-delay="130" style="display:inline-flex">views</span><span class="dot-w rv" data-fade="240">.</span></span>
             </h2>
             <div class="rule" id="lapRule"></div>
-            <p class="intro tx" data-split="words" data-stagger="34" data-delay="350" data-cfg="copy">Sujanagar, Barlekha, in Moulvibazar district. Agar of Moulvibazar is a registered GI of Bangladesh.</p>
+            <p class="intro tx" data-split="words" data-stagger="34" data-delay="350" data-cfg="copy">Filmed at work, not in a studio. One of our harvest videos passed 12 million views on TikTok and Facebook.</p>
+            <a class="film-link rv" id="filmLink" href="https://www.tiktok.com/@ehsanur49" target="_blank" rel="noopener">watch on tiktok <svg class="arr" aria-hidden="true"><use href="#arrow"/></svg></a>
           </div>
           <div class="plate" id="lapPlate">
             <svg class="pf" viewBox="0 0 277 78" preserveAspectRatio="none" aria-hidden="true"><path d="M.5 .5H276.5V69L268 77.5H.5Z" vector-effect="non-scaling-stroke" style="fill:var(--surface-black);stroke:var(--accent)"/><path d="M83 .5V77.5" vector-effect="non-scaling-stroke" style="stroke:var(--accent)"/></svg>
             <div class="badge">
               <svg viewBox="0 0 37 23" aria-hidden="true"><ellipse cx="18.5" cy="11.5" rx="18" ry="11"/><path d="M.5 11.5H36.5"/><ellipse id="meridian" cx="18.5" cy="11.5" rx="18" ry="11"/></svg>
-              <p><span class="tx" data-split="letters" data-stagger="22" data-delay="430" data-cfg="type" style="column-gap:0">BD</span><span class="tx" data-split="letters" data-stagger="22" data-delay="490" data-cfg="type" style="color:var(--accent);column-gap:0">/ SYLHET</span></p>
+              <p><span class="tx" data-split="letters" data-stagger="22" data-delay="430" data-cfg="type" style="column-gap:0">BD</span><span class="tx" data-split="letters" data-stagger="22" data-delay="490" data-cfg="type" style="color:var(--accent);column-gap:0">/ FILM</span></p>
             </div>
             <dl class="pst">
-              <div><dt class="tx" data-split="letters" data-delay="430">24.66°N</dt><dd class="tx" data-split="letters" data-delay="500" data-stagger="12">92.13°E</dd></div>
+              <div><dt class="tx" data-split="letters" data-delay="430">12M+</dt><dd class="tx" data-split="letters" data-delay="500" data-stagger="12">views, one video</dd></div>
               <div><dt class="tx" data-split="letters" data-delay="540">50+</dt><dd class="tx" data-split="letters" data-delay="610" data-stagger="12">years, one family</dd></div>
-              <div><dt class="tx" data-split="letters" data-delay="650">GI</dt><dd class="tx" data-split="letters" data-delay="720" data-stagger="12">moulvibazar agar.</dd></div>
+              <div><dt class="tx" data-split="letters" data-delay="650">~10</dt><dd class="tx" data-split="letters" data-delay="720" data-stagger="12">days per run.</dd></div>
             </dl>
           </div>
         </div>
@@ -591,14 +602,14 @@ html.lock{position:relative;overflow:hidden;height:100%}
       <span style="display:flex" aria-hidden="true"><span class="tx" data-split="words" data-delay="130">distillery</span><span class="dot-w rv" data-fade="240">.</span></span>
     </h2>
     <nav class="f-nav" aria-label="Footer">
-      <a href="#lap"><span class="tx" data-split="letters" data-stagger="22" data-delay="260" data-cfg="row">origin</span></a>
+      <a href="#lap"><span class="tx" data-split="letters" data-stagger="22" data-delay="260" data-cfg="row">film</span></a>
       <a href="#steps"><span class="tx" data-split="letters" data-stagger="22" data-delay="340" data-cfg="row">tree to oil</span></a>
       <a href="#grades"><span class="tx" data-split="letters" data-stagger="22" data-delay="420" data-cfg="row">grades</span></a>
       <a href="#wholesale"><span class="tx" data-split="letters" data-stagger="22" data-delay="500" data-cfg="row">wholesale</span></a>
       <a href="#" class="wa" data-wa="footer-nav"><span class="tx" data-split="letters" data-stagger="22" data-delay="580" data-cfg="row">whatsapp</span></a>
     </nav>
     <div class="f-foot">
-      <p class="f-copy" data-at="640">© 2026 Royal Agar Attar. Sujanagar, Barlekha, Moulvibazar, Bangladesh. Map data: geoBoundaries (CC BY 4.0). Smoke photo: <a href="https://unsplash.com/photos/smoke-on-a-black-background-bVlz5gv18Qk" target="_blank" rel="noopener">Thomas Stephan / Unsplash</a></p>
+      <p class="f-copy" data-at="640">© 2026 Royal Agar Attar. Sujanagar, Barlekha, Moulvibazar, Bangladesh. Smoke photo: <a href="https://unsplash.com/photos/smoke-on-a-black-background-bVlz5gv18Qk" target="_blank" rel="noopener">Thomas Stephan / Unsplash</a></p>
       <a class="cta-hollow wa" data-wa="footer" data-at="720" href="#">
         <svg class="f" viewBox="0 0 275 50" preserveAspectRatio="none" aria-hidden="true">
           <path class="flood" d="M.5 .5H274.5V41.165L266.165 49.5H.5Z" style="fill:var(--accent)"/>
@@ -622,7 +633,7 @@ html.lock{position:relative;overflow:hidden;height:100%}
     <button class="sheet-close" id="sheetClose" aria-label="Close menu"><i></i><i></i></button>
   </div>
   <nav aria-label="Menu">
-    <a href="#lap" data-close>Origin</a>
+    <a href="#lap" data-close>Film</a>
     <a href="#steps" data-close>Tree to oil</a>
     <a href="#grades" data-close>Grades</a>
     <a href="#wholesale" data-close>Wholesale</a>
@@ -1044,137 +1055,93 @@ function createHero(){
   return state;
 }
 
-/* ================= ORIGIN: halftone map of Bangladesh + trace to Sujanagar ================= */
+/* ================= FILM: the harvest in amber, true colour under the cursor ================= */
+const FILM_FS = `#version 300 es
+precision highp float;
+out vec4 o;
+uniform vec2 uRes; uniform float uDpr, uTime, uGate, uRadius, uTaper; uniform vec2 uCover; uniform vec2 uTrail[24]; uniform int uN;
+uniform sampler2D uVid; uniform vec3 uAccent;
+float h21(vec2 p){ p = fract(p*vec2(123.34,456.21)); p += dot(p,p+45.32); return fract(p.x*p.y); }
+float vn(vec2 p){ vec2 i=floor(p), f=fract(p); f=f*f*(3.0-2.0*f); return mix(mix(h21(i),h21(i+vec2(1,0)),f.x), mix(h21(i+vec2(0,1)),h21(i+vec2(1,1)),f.x), f.y); }
+float cap(vec2 p, vec2 a, vec2 b){ vec2 pa=p-a, ba=b-a; float h=clamp(dot(pa,ba)/max(dot(ba,ba),1e-4),0.0,1.0); return length(pa-ba*h); }
+void main(){
+  vec2 px = vec2(gl_FragCoord.x, uRes.y*uDpr - gl_FragCoord.y) / uDpr;
+  vec2 uv = (px / uRes - 0.5) * uCover + 0.5;
+  vec3 c = texture(uVid, uv).rgb;
+  float l = dot(c, vec3(0.299, 0.587, 0.114));
+  // the amber print: shadows to resin black, mids to oil, highlights to cream
+  vec3 dark = vec3(0.035, 0.03, 0.028), cream = vec3(1.0, 0.93, 0.8);
+  vec3 tone = l < 0.5 ? mix(dark, uAccent * 0.8, l * 2.0) : mix(uAccent * 0.8, cream, (l - 0.5) * 2.0);
+  // a fine halftone screen, rotated 45°
+  vec2 g = mat2(0.7071, -0.7071, 0.7071, 0.7071) * px / 5.0;
+  float d = length(fract(g) - 0.5);
+  float dotm = smoothstep(0.5 * sqrt(l) + 0.06, 0.5 * sqrt(l) - 0.02, d);
+  vec3 print = mix(dark, tone, mix(0.5, 1.0, dotm)) * 0.72;
+  // the cursor trail: true colour
+  float m = 0.0;
+  if (uN > 1 && uGate > 0.0){
+    vec2 q = px + (vec2(vn(px*0.006 + uTime*0.3), vn(px*0.006 - uTime*0.25 + 5.0)) - 0.5) * uRadius * 1.1;
+    for (int i = 0; i < 23; i++){ if (i >= uN - 1) break; float r = uRadius * pow(1.0 - float(i)/float(uN), uTaper); m = max(m, 1.0 - smoothstep(r*0.9, r, cap(q, uTrail[i], uTrail[i+1]))); }
+    m *= uGate;
+  }
+  vec3 col = mix(print, c, m);
+  float edge = m * (1.0 - m) * 4.0;
+  col += uAccent * edge * 0.35;
+  o = vec4(col, 1.0);
+}`;
 function createLap(){
-  const section = $("#lap"), stage = $("#stage"), map = $("#mapCanvas"), trace = $("#traceCanvas");
-  const mctx = map.getContext("2d"), tctx = trace.getContext("2d");
-  const coarse = mq("(pointer: coarse)").matches; const R = coarse ? 1 : Math.min(devicePixelRatio, 2);
-  [map, trace].forEach((c) => { c.width = 1440 * R; c.height = 800 * R; c.getContext("2d").setTransform(R, 0, 0, R, 0, 0); });
-  let M = null, dotLayer = null, crawl = 0, ping = 0, lapStart = 0, done = false, reticle = null;
-  let legs = [], HUB = [898.7, 279.9], IN = null, inDots = [];
-  const pip = (pt, ring) => { let c = false; for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) { const a = ring[i], b = ring[j]; if ((a[1] > pt[1]) !== (b[1] > pt[1]) && pt[0] < (b[0] - a[0]) * (pt[1] - a[1]) / (b[1] - a[1]) + a[0]) c = !c; } return c; };
-  // a polyline with its own clock: corners brake, straights run
-  function timed(ring){ const t = [0]; for (let i = 1; i < ring.length; i++) { const a = ring[i - 1], b = ring[i], c = ring[Math.min(i + 1, ring.length - 1)];
-      const seg = Math.hypot(b[0] - a[0], b[1] - a[1]); let da = Math.abs(Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(b[1] - a[1], b[0] - a[0])); if (da > Math.PI) da = 2 * Math.PI - da;
-      t.push(t[i - 1] + seg / (0.45 + 0.55 * (1 - clamp01(da / 0.5)))); }
-    const T = t[t.length - 1]; return { pts: ring, tn: t.map((v) => v / T) }; }
-  const PLACES = [ { k: "dhaka", l: "dhaka", at: 0.30 }, { k: "chattogram", l: "chattogram", at: 0.42 }, { k: "sylhet", l: "sylhet", at: 0.62, left: true, len: 26 } ];
-  fetch("assets/data/map.json").then((r) => { if (!r.ok) throw new Error("Failed to load assets/data/map.json"); return r.json(); }).then((m) => {
-    M = m; HUB = m.places.sujanagar;
-    // the inset: Moulvibazar magnified into a panel on the right
-    const xs = m.mlv[0].map((q) => q[0]), ys = m.mlv[0].map((q) => q[1]);
-    const bx = Math.min(...xs), by = Math.min(...ys), bw = Math.max(...xs) - bx, bh = Math.max(...ys) - by;
-    const box = { x: 1010, y: 250, w: 290, h: 400 }; const k = Math.min((box.w - 40) / bw, (box.h - 70) / bh);
-    const ox = box.x + (box.w - bw * k) / 2, oy = box.y + 50 + (box.h - 60 - bh * k) / 2;
-    IN = { ...box, k, T: (q) => [ox + (q[0] - bx) * k, oy + (q[1] - by) * k] };
-    for (let y = by; y < by + bh; y += 1.6) for (let x = bx; x < bx + bw; x += 1.6) if (pip([x, y], m.mlv[0])) inDots.push([...IN.T([x, y]), pip([x, y], m.brl[0]) ? 2 : 1]);
-    // the lap: the border (0 → .62), then Moulvibazar (.62 → .82), then Barlekha (.82 → .95), then the pin
-    legs = [ { ...timed(m.country[0]), a: 0, b: 0.62, w: 2.4 }, { ...timed(m.mlv[0]), a: 0.62, b: 0.82, w: 2 }, { ...timed(m.brl[0]), a: 0.82, b: 0.95, w: 2 } ];
-    fit(); drawMap(0);
-  }).catch((e) => showError(e.message));
-
-  const lonLat = (x, y) => { const P = M.proj; return [P.lon0 + (x - P.cx) / P.px, P.top - (y - P.y0) / P.py]; };
-  const toXY = (lon, lat) => { const P = M.proj; return [P.cx + (lon - P.lon0) * P.px, P.y0 + (P.top - lat) * P.py]; };
-  const ringPath = (c, ring) => { c.beginPath(); ring.forEach((p, i) => i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1])); };
-
-  function drawMap(time){
-    const c = mctx; c.clearRect(0, 0, 1440, 800); if (!M) return;
-    if (!dotLayer) { dotLayer = document.createElement("canvas"); dotLayer.width = 1440 * R; dotLayer.height = 800 * R; const d = dotLayer.getContext("2d"); d.setTransform(R, 0, 0, R, 0, 0);
-      const COL = [css("--map-dot"), "#b6c1c8", css("--accent")], RAD = [1.55, 2.1, 2.3];
-      for (const [x, y, k] of M.dots) { d.fillStyle = COL[k]; d.globalAlpha = k ? 0.95 : 0.7; d.beginPath(); d.arc(x, y, RAD[k], 0, 6.2832); d.fill(); }
-      d.globalAlpha = 1; d.lineWidth = 1; d.strokeStyle = "#2f323a"; M.country.forEach((r) => { ringPath(d, r); d.stroke(); });
-      d.strokeStyle = "#3d4049"; d.setLineDash([2, 3]); ringPath(d, M.sylhet[0]); d.stroke(); d.setLineDash([]); }
-    // graticule: whole degrees, faint, labelled at the edge
-    c.strokeStyle = css("--map-ghost"); c.lineWidth = 1; c.fillStyle = "#4d4d4d"; c.font = "500 10px 'Space Grotesk', sans-serif";
-    for (let lon = 88; lon <= 93; lon++) { const [x] = toXY(lon, 24); c.beginPath(); c.moveTo(x, 0); c.lineTo(x, 800); c.stroke(); c.fillText(`${lon}°E`, x + 4, 790); }
-    for (let lat = 21; lat <= 26; lat++) { const [, y] = toXY(90, lat); c.beginPath(); c.moveTo(0, y); c.lineTo(1440, y); c.stroke(); c.fillText(`${lat}°N`, 1400, y - 4); }
-    // dashed axes through the distillery, crawling
-    c.setLineDash([6.8, 4.7]); c.lineDashOffset = -crawl; c.strokeStyle = css("--map-grid"); c.lineWidth = 1.2;
-    c.beginPath(); c.moveTo(HUB[0], -200); c.lineTo(HUB[0], 1000); c.moveTo(-200, HUB[1]); c.lineTo(1640, HUB[1]); c.stroke(); c.setLineDash([]);
-    c.drawImage(dotLayer, 0, 0, 1440, 800);
-    // rings on the hub, and the ping
-    c.strokeStyle = css("--map-grid"); c.lineWidth = 1.7; c.beginPath(); c.arc(HUB[0], HUB[1], 39.2, 0, 6.2832); c.stroke();
-    c.strokeStyle = css("--map-ghost"); c.lineWidth = 1.2; [200, 248.7].forEach((r) => { c.beginPath(); c.arc(HUB[0], HUB[1], r, 0, 6.2832); c.stroke(); });
-    const v = 1 - (1 - ping) * (1 - ping); c.strokeStyle = css("--accent"); c.lineWidth = 1.2; c.globalAlpha = 0.4 * (1 - v) * (1 - v); c.beginPath(); c.arc(HUB[0], HUB[1], 6 + v * 48, 0, 6.2832); c.stroke(); c.globalAlpha = 1;
-    c.fillStyle = css("--raw-ice-50"); [[36.7,43.2],[1389,43.2],[36.7,523.7],[1389,523.7],[36.7,754.8],[649.3,754.8],[778.1,754.8]].forEach(([x, y]) => c.fillRect(x, y, 9.4, 9.4));
-  }
-
-  function drawLeg(c, leg, p, live, accent){
-    const k = clamp01((p - leg.a) / (leg.b - leg.a)); if (k <= 0) return null;
-    let hi = 0; while (hi < leg.tn.length - 1 && leg.tn[hi] < k) hi++;
-    const path = () => { c.beginPath(); for (let i = 0; i <= hi; i++) i ? c.lineTo(leg.pts[i][0], leg.pts[i][1]) : c.moveTo(leg.pts[i][0], leg.pts[i][1]); };
-    if (live && k < 1) { c.globalCompositeOperation = "lighter"; c.strokeStyle = accent; c.globalAlpha = 0.16; c.lineWidth = 12; path(); c.stroke(); c.globalAlpha = 0.3; c.lineWidth = 6; path(); c.stroke(); c.globalCompositeOperation = "source-over"; }
-    c.globalAlpha = live ? 1 : 0.85; c.strokeStyle = accent; c.lineWidth = leg.w; path(); c.stroke(); c.globalAlpha = 1;
-    if (live && k < 1) { c.strokeStyle = "#fff"; c.lineWidth = 1.4; c.beginPath(); const f = Math.max(0, hi - 10); for (let i = f; i <= hi; i++) i > f ? c.lineTo(leg.pts[i][0], leg.pts[i][1]) : c.moveTo(leg.pts[i][0], leg.pts[i][1]); c.stroke();
-      const h = leg.pts[hi]; const g = c.createRadialGradient(h[0], h[1], 0, h[0], h[1], 16); g.addColorStop(0, "rgba(255,255,255,.9)"); g.addColorStop(.3, accent); g.addColorStop(1, "rgba(0,0,0,0)"); c.fillStyle = g; c.beginPath(); c.arc(h[0], h[1], 16, 0, 6.2832); c.fill(); }
-    return k;
-  }
-  function label(c, x, y, text, lit, opts = {}){
-    const dx = opts.left ? -1 : 1, dy = opts.up ? -1 : 1, L = opts.len || 22;
-    c.strokeStyle = lit ? css("--accent") : "#4d4d4d"; c.lineWidth = 1; c.beginPath(); c.moveTo(x, y); c.lineTo(x + dx * L * 0.7, y + dy * -L); c.lineTo(x + dx * (L * 0.7 + 12), y + dy * -L); c.stroke();
-    c.fillStyle = lit ? "#fff" : "#7a7a7a"; c.textAlign = opts.left ? "right" : "left"; c.fillText(text.toUpperCase(), x + dx * (L * 0.7 + 17), y + dy * -L); c.textAlign = "left";
-  }
-  function drawTrace(time){
-    const c = tctx; c.clearRect(0, 0, 1440, 800); if (!M) return; c.lineJoin = "round"; c.lineCap = "round"; c.textBaseline = "middle";
-    const p = lapStart ? clamp01((time - lapStart) / 7000) : 0; const accent = css("--accent");
-    if (p >= 0.95) { c.fillStyle = "rgba(235,163,65,.14)"; ringPath(c, M.brl[0]); c.fill(); }
-    legs.forEach((leg) => drawLeg(c, leg, p, !done, accent));
-    c.font = "500 12px 'Space Grotesk', sans-serif";
-    for (const pl of PLACES) { const [x, y] = M.places[pl.k]; const lit = p >= pl.at; c.fillStyle = lit ? "#fff" : "#4d4d4d"; c.beginPath(); c.arc(x, y, 3, 0, 6.2832); c.fill(); label(c, x, y, pl.l, lit, pl); }
-    // the distillery on the country map: a small pin
-    const pin = clamp01((p - 0.95) / 0.05);
-    if (pin > 0) { const [x, y] = HUB; c.globalAlpha = pin; c.fillStyle = accent; c.beginPath(); c.arc(x, y, 3.5, 0, 6.2832); c.fill(); c.globalAlpha = 1; }
-    // the inset panel
-    if (IN) { const show = clamp01((p - 0.6) / 0.06);
-      if (show > 0) { c.globalAlpha = show;
-        c.fillStyle = css("--surface-black"); c.fillRect(IN.x, IN.y, IN.w, IN.h);
-        c.strokeStyle = "#2f323a"; c.lineWidth = 1; c.strokeRect(IN.x + .5, IN.y + .5, IN.w - 1, IN.h - 1);
-        c.strokeStyle = accent; [[0,0,1,1],[1,0,-1,1],[1,1,-1,-1],[0,1,1,-1]].forEach(([fx, fy, sx, sy]) => { const X = IN.x + fx * IN.w, Y = IN.y + fy * IN.h; c.beginPath(); c.moveTo(X, Y + sy * 10); c.lineTo(X, Y); c.lineTo(X + sx * 10, Y); c.stroke(); });
-        // connector from the hub ring to the panel
-        c.strokeStyle = "rgba(235,163,65,.45)"; c.setLineDash([3, 4]); c.beginPath(); c.moveTo(HUB[0] + 28, HUB[1] + 28); c.lineTo(IN.x, IN.y); c.stroke(); c.setLineDash([]);
-        c.fillStyle = "#b6c1c8"; c.font = "500 11px 'Space Grotesk', sans-serif"; c.textBaseline = "alphabetic"; c.fillText("MOULVIBAZAR DISTRICT", IN.x + 16, IN.y + 26);
-        c.fillStyle = "#4d4d4d"; c.textAlign = "right"; c.fillText(`×${IN.k.toFixed(1)}`, IN.x + IN.w - 16, IN.y + 26); c.textAlign = "left"; c.textBaseline = "middle";
-        for (const [x, y, k] of inDots) { c.fillStyle = k === 2 ? accent : "#5c5f66"; c.globalAlpha = show * (k === 2 ? 0.9 : 0.8); c.fillRect(x - 0.9, y - 0.9, 1.8, 1.8); }
-        c.globalAlpha = show;
-        legs.slice(1).forEach((leg) => drawLeg(c, { ...leg, pts: leg.pts.map(IN.T), w: leg.w * 0.9 }, p, !done, accent));
-        const mt = IN.T(M.places.moulvibazar); c.fillStyle = p >= 0.78 ? "#fff" : "#4d4d4d"; c.beginPath(); c.arc(mt[0], mt[1], 3, 0, 6.2832); c.fill(); label(c, mt[0], mt[1], "moulvibazar", p >= 0.78, { left: true, len: 18 });
-        if (p >= 0.9) { const bl = IN.T(HUB); c.fillStyle = accent; c.font = "500 11px 'Space Grotesk', sans-serif"; c.textAlign = "right"; c.fillText("BARLEKHA UPAZILA", bl[0] - 14, bl[1] + 34); c.textAlign = "left"; }
-        if (pin > 0) { const [x, y] = IN.T(HUB); c.globalAlpha = pin;
-          c.fillStyle = accent; c.beginPath(); c.arc(x, y, 5.5, 0, 6.2832); c.fill();
-          const v = ((time % 3200) / 3200), e = 1 - (1 - v) * (1 - v); c.strokeStyle = accent; c.lineWidth = 1; c.globalAlpha = pin * 0.5 * (1 - e) * (1 - e); c.beginPath(); c.arc(x, y, 5.5 + e * 5.5 * 3.4, 0, 6.2832); c.stroke(); c.globalAlpha = pin;
-          c.beginPath(); c.moveTo(x, y - 8); c.lineTo(x - 14, y - 40); c.lineTo(x - 40, y - 40); c.stroke();
-          c.textAlign = "right"; c.fillStyle = "#fff"; c.font = "700 16px 'Oswald', Impact, sans-serif"; c.fillText("SUJANAGAR", x - 46, y - 46);
-          c.fillStyle = accent; c.font = "500 10px 'Space Grotesk', sans-serif"; c.fillText("OUR DISTILLERY", x - 46, y - 29); c.textAlign = "left"; }
-        c.fillStyle = "#7a7a7a"; c.font = "500 10px 'Space Grotesk', sans-serif"; c.fillText("24.66°N  92.13°E", IN.x + 16, IN.y + IN.h - 18);
-        c.globalAlpha = 1; } }
-    // reticle with a live read-out
-    if (reticle && done) {
-      const SP = 7, gx = Math.round(reticle[0] / SP) * SP, gy = Math.round(reticle[1] / SP) * SP;
-      c.strokeStyle = "rgba(235,163,65,.35)"; c.lineWidth = 1; c.setLineDash([3, 5]); c.beginPath(); c.moveTo(gx, 0); c.lineTo(gx, 800); c.moveTo(0, gy); c.lineTo(1440, gy); c.stroke(); c.setLineDash([]);
-      for (let k = -12; k <= 12; k++) { const fall = 1 - Math.abs(k) / 13, sz = 1.5 + fall * 3.5; c.fillStyle = `rgba(235,163,65,${0.2 + 0.8 * fall})`; c.fillRect(gx + k * SP - sz / 2, gy - sz / 2, sz, sz); c.fillRect(gx - sz / 2, gy + k * SP - sz / 2, sz, sz); }
-      c.strokeStyle = accent; c.strokeRect(gx - 8, gy - 8, 16, 16);
-      const [lo, la] = lonLat(gx, gy); const km = Math.round(Math.hypot((gx - HUB[0]) / M.proj.px * 111.32 * Math.cos(la * Math.PI / 180), (gy - HUB[1]) / M.proj.py * 110.57));
-      c.font = "500 11px 'Space Grotesk', sans-serif"; c.fillStyle = "#fff"; c.fillText(`${la.toFixed(2)}°N ${lo.toFixed(2)}°E`, gx + 14, gy + 18); c.fillStyle = accent; c.fillText(`${km} KM TO SUJANAGAR`, gx + 14, gy + 33);
-    }
-    if (p >= 1 && !done) done = true;
-  }
-
-  function fit(){ const w = section.clientWidth, h = section.clientHeight; let sc, tx, ty;
-    if (innerWidth >= 1024) { sc = Math.max(w / 1440, h / 800); tx = (w - 1440 * sc) / 2; ty = (h - 800 * sc) / 2; }
-    else { const box = [420, 20, 890, 760]; const col = section.querySelector('.season-col > div'); const top = col.offsetTop + col.offsetHeight + 16, room = h - top - (innerWidth < 640 ? 130 : 150); sc = Math.min(w / box[2], room / box[3]); tx = w / 2 - (box[0] + box[2] / 2) * sc; ty = top - box[1] * sc; }
-    stage.style.transform = `translate(${tx}px,${ty}px) scale(${sc})`; stage._f = { sc, tx, ty }; }
-  new ResizeObserver(fit).observe(section); fit();
-
-  section.addEventListener("pointermove", (e) => { if (reduced || !M) return; const r = section.getBoundingClientRect(), f = stage._f; reticle = [(e.clientX - r.left - f.tx) / f.sc, (e.clientY - r.top - f.ty) / f.sc]; });
-  section.addEventListener("pointerleave", () => reticle = null);
-
-  let visible = false, tail = 0; new IntersectionObserver((es) => { visible = es[0].isIntersecting; if (!visible) tail = 10; }).observe(section);
-  onArrive(section, () => { lapStart = performance.now() + 300; if (reduced) lapStart = performance.now() - 7000; }, "0% 0% -35% 0%");
-  const meridian = $("#meridian"); const spinT0 = performance.now();
-  subscribe((time, dt) => { if (!visible) { if (tail <= 0) return; tail--; }
-    if (!reduced) { crawl = (crawl + dt / 7000 * 11.5) % 11.5; ping = (time % 4200) / 4200; }
-    drawMap(time); drawTrace(time);
-    meridian.setAttribute("rx", Math.max(0.5, Math.abs(Math.cos((time - spinT0) / 10000 * 6.2832)) * 18)); }, () => 1000 / 60 - 2);
+  const section = $("#lap"), film = $("#film"), video = $("#filmVideo"), canvas = $("#filmCanvas");
+  const tall = () => section.clientHeight > section.clientWidth * 1.05;
+  let src = "";
+  function pick(){ const ext = video.canPlayType('video/webm; codecs="vp9"') ? "webm" : "mp4"; const want = `assets/video/harvest-${tall() ? "tall" : "wide"}.${ext}`; if (want !== src) { src = want; video.src = want; if (visible) video.play().catch(() => {}); } }
+  let visible = false;
+  new IntersectionObserver((es) => { visible = es[0].isIntersecting; if (visible) { pick(); video.play().catch(() => {}); } else video.pause(); }, { rootMargin: "20% 0%" }).observe(section);
+  addEventListener("resize", pick);
+  if (reduced) { video.removeAttribute("loop"); }
+  const gl = canvas.getContext("webgl2", { antialias: false });
+  if (!gl) return;
+  let prog;
+  try {
+    const sh = (t, s) => { const x = gl.createShader(t); gl.shaderSource(x, s); gl.compileShader(x); if (!gl.getShaderParameter(x, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(x)); return x; };
+    prog = gl.createProgram(); gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FILM_FS)); gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+  } catch (e) { console.error(e); return; }
+  gl.useProgram(prog);
+  const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, "aPos"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const U = {}; ["uRes","uDpr","uTime","uGate","uRadius","uTaper","uCover","uTrail","uN","uVid","uAccent"].forEach((n) => U[n] = gl.getUniformLocation(prog, n));
+  gl.uniform1i(U.uVid, 0); gl.uniform3fv(U.uAccent, hexToRgb(css("--raw-amber-400")));
+  const tex = gl.createTexture(); gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([9, 10, 11, 255]));
+  let W = 0, H = 0, dpr = 1, has = false;
+  function size(){ dpr = Math.min(devicePixelRatio, 1.5); W = section.clientWidth; H = section.clientHeight; canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr); gl.viewport(0, 0, canvas.width, canvas.height); gl.uniform2f(U.uRes, W, H); gl.uniform1f(U.uDpr, dpr); }
+  new ResizeObserver(size).observe(section); size();
+  const hover = mq("(hover: hover)").matches;
+  let ptr = null, smooth = null, trail = [], pace = 0;
+  section.addEventListener("pointermove", (e) => { const r = section.getBoundingClientRect(); ptr = [e.clientX - r.left, e.clientY - r.top]; });
+  section.addEventListener("pointerleave", () => { ptr = null; });
+  subscribe((time) => {
+    if (!visible || document.hidden) return;
+    if (video.readyState >= 2) {
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, video);
+      if (!has) { has = true; film.classList.add("gl"); }
+      const va = video.videoWidth / video.videoHeight, ca = W / H; gl.uniform2f(U.uCover, va > ca ? ca / va : 1, va > ca ? 1 : va / ca);
+    } else if (!has) return;
+    let target = ptr;
+    if (!hover) { const t = time * 0.001 * 0.8; target = [W * (0.5 + Math.sin(t) * 0.32), H * (0.55 + Math.sin(t * 0.7) * 0.25)]; }
+    if (target) { smooth = smooth ? [smooth[0] + (target[0] - smooth[0]) * 0.35, smooth[1] + (target[1] - smooth[1]) * 0.35] : target.slice();
+      const last = trail[0]; const sp = last ? Math.hypot(smooth[0] - last[0], smooth[1] - last[1]) / (H / 2) : 0; const goal = clamp01(sp / 0.029); pace += (goal - pace) * (goal > pace ? 0.09 : 0.205);
+      trail.unshift(smooth.slice()); if (trail.length > 24) trail.length = 24; }
+    else { pace *= 0.9; }
+    const flat = new Float32Array(48); trail.forEach((q, i) => { flat[i * 2] = q[0]; flat[i * 2 + 1] = q[1]; });
+    gl.uniform2fv(U.uTrail, flat); gl.uniform1i(U.uN, trail.length);
+    const k = clamp01((pace - 0.06) / 0.15), gate = hover ? k * k * (3 - 2 * k) : 0.8;
+    gl.uniform1f(U.uGate, gate); gl.uniform1f(U.uRadius, H * (hover ? 0.11 : 0.16) * (0.35 + 0.65 * (hover ? pace : 0.7)));
+    gl.uniform1f(U.uTaper, 3.04 - 1.79 * pace); gl.uniform1f(U.uTime, time * 0.001);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  }, () => 1000 / 30);
 }
 
 /* ================= timeline ================= */
@@ -1282,7 +1249,7 @@ function createLapCopy(){
   const sec = $("#lap");
   onArrive(sec, () => {
     revealBlock($("#lapHead")); rise($("#lapRule"), { delay: 260, scale: true }); playText($(".intro", sec));
-    rise($("#lapPlate"), { delay: 260, y: "0.75rem" }); $$("#lapPlate [data-split]").forEach((el) => playText(el));
+    rise($("#lapPlate"), { delay: 260, y: "0.75rem" }); rise($("#filmLink"), { delay: 700, y: "0.75rem" }); $$("#lapPlate [data-split]").forEach((el) => playText(el));
   }, "0% 0% -30% 0%");
 }
 
