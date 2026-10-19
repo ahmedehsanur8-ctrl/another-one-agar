@@ -8,6 +8,7 @@ Single static page, no build step. Layout and motion follow the F1 driver-site p
 - `assets/img/bottle.webp`: the hero bottle, with "Pure" removed from the label.
 - `assets/img/steps/`: frames taken from the real process videos.
 - `assets/img/filtering.webp`: real frame, oil filtering.
+- `assets/data/map.json`: Bangladesh, Sylhet, Moulvibazar and Barlekha outlines plus halftone dots, projected from geoBoundaries (CC BY 4.0).
 
 ## Claim rules (keep when editing copy)
 - No "pure", "100% pure", "certified", "lab tested" or "organic" until there is a lab report.
