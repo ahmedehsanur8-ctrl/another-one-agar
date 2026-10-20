@@ -21,3 +21,6 @@ Every WhatsApp link pushes `whatsapp_click` and `generate_lead` to `dataLayer` w
 
 ## Hosting
 Static files; `netlify.toml` publishes the repo root. Works on Netlify, Cloudflare Pages, GitHub Pages or Vercel.
+
+## main-site/
+A full copy of the main website (repo `royal-agar-attar-site`, the design that was live at royalagarattar.qd.je before this F1 design replaced it): page, CSS/JS, all images, the 9 process videos and the render tools. It opens on its own at `/main-site/`. The same old design is also kept in the `backup-old-design` branch of `royal-agar-attar-site`.
