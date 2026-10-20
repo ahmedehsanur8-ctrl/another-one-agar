@@ -7,7 +7,7 @@ Single static page, no build step. Layout and motion follow the F1 driver-site p
 - `assets/img/smoke.webp`: hero background. Free photo by Thomas Stephan on Unsplash (Unsplash License), credited in the footer.
 - `assets/img/bottle.webp`: the hero bottle, with "Pure" removed from the label.
 - `assets/img/steps/`: frames taken from the real process videos.
-- `assets/img/filtering.webp`: real frame, oil filtering.
+- `assets/img/bottling.webp`: real frame, oil being bottled (grades section).
 - `assets/video/harvest-*.{webm,mp4}`: 15s loop cut from the real process footage (wide for desktop, tall for phones), shown as an amber halftone with true colour under the cursor.
 
 ## Claim rules (keep when editing copy)

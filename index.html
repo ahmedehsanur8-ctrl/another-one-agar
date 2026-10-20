@@ -86,7 +86,7 @@ html.lock{position:relative;overflow:hidden;height:100%}
 .no-webgl .hero-fallback{display:flex}
 .fitbox-wrap{position:absolute;inset:0;margin:0 -1.5rem;pointer-events:none}
 .fitbox{position:absolute;left:0;right:0;bottom:0;height:calc(100% - 4rem)}
-.ramp{position:absolute;left:0;right:0;bottom:0;height:22%;z-index:10;pointer-events:none;background-image:linear-gradient(to bottom,color-mix(in srgb,var(--background) 0%,transparent) 0%,color-mix(in srgb,var(--background) 6%,transparent) 26%,color-mix(in srgb,var(--background) 20%,transparent) 46%,color-mix(in srgb,var(--background) 45%,transparent) 64%,color-mix(in srgb,var(--background) 74%,transparent) 80%,color-mix(in srgb,var(--background) 93%,transparent) 91%,var(--background) 100%)}
+.ramp{position:absolute;left:0;right:0;bottom:0;height:12%;z-index:10;pointer-events:none;background-image:linear-gradient(to bottom,color-mix(in srgb,var(--background) 0%,transparent) 0%,color-mix(in srgb,var(--background) 6%,transparent) 26%,color-mix(in srgb,var(--background) 20%,transparent) 46%,color-mix(in srgb,var(--background) 45%,transparent) 64%,color-mix(in srgb,var(--background) 74%,transparent) 80%,color-mix(in srgb,var(--background) 93%,transparent) 91%,var(--background) 100%)}
 .hero-col{position:relative;z-index:20;min-height:100lvh;display:flex;flex-direction:column;gap:1rem;padding:1.5rem;pointer-events:none}
 .hero-col a,.hero-col button{pointer-events:auto}
 @media (min-width:640px){.hero-col{padding:1.5rem 2rem}}
@@ -274,38 +274,52 @@ html.lock{position:relative;overflow:hidden;height:100%}
   .tl-in.dim .row:not(:hover){opacity:1}
 }
 
-/* ---------- grades (paddock) ---------- */
-.pad{container-type:inline-size;position:relative;isolation:isolate;min-height:var(--block-h,100lvh);width:100%;overflow:hidden;background:var(--background);color:var(--foreground);--band:calc(11.7361cqw*var(--band-scale,1))}
+/* ---------- grades ---------- */
+.pad{container-type:inline-size;position:relative;isolation:isolate;width:100%;overflow:hidden;background:var(--background);color:var(--foreground);--G:max(2.2222cqw,24px);--P:calc(100cqw/1440)}
 .pad>canvas.contour{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.band{position:absolute;left:0;right:0;bottom:0;height:var(--band);background:var(--surface-black)}
-.fig-layer{position:absolute;inset:0;z-index:10;pointer-events:none}
-.pad-fig{position:absolute;bottom:calc(var(--band) * .55);left:var(--fig-x,57%);transform:translateX(-50%);height:min(86%,900px);aspect-ratio:900/1000;width:auto;object-fit:cover;-webkit-mask-image:radial-gradient(ellipse 58% 62% at 50% 46%,#000 52%,transparent 100%);mask-image:radial-gradient(ellipse 58% 62% at 50% 46%,#000 52%,transparent 100%)}
-.melt{position:absolute;left:0;right:0;bottom:0;z-index:10;height:calc(var(--band) * 1.9);background:linear-gradient(to bottom,rgb(9 10 11/0) 0%,var(--surface-black) 58%)}
-.pad h2{position:absolute;z-index:20;left:2.2222cqw;top:2.2222cqw;font-family:var(--font-display);font-weight:700;text-transform:uppercase;line-height:.95;font-size:max(6.6667cqw,var(--head-min,0px))}
+.g-top{position:relative;z-index:20;display:grid;grid-template-columns:1fr calc(var(--P)*430);gap:4cqw;padding:calc(var(--G)*2.4) var(--G) 3.5cqw}
+.pad h2{font-family:var(--font-display);font-weight:700;text-transform:uppercase;line-height:.95;font-size:max(6.6667cqw,48px)}
 .pad h2 .tx{justify-content:flex-start}
 .dot-a{color:var(--accent-ink)}
-.pad-intro{position:absolute;z-index:20;left:2.2222cqw;bottom:calc(var(--band)*1.9 + 2.2222cqw);width:max(23.4722cqw,var(--intro-min-w,0px));display:flex;flex-direction:column;gap:2.7778cqw}
-.report{font-size:max(1.25cqw,var(--copy-min-size,0px));text-transform:uppercase;line-height:1.1;column-gap:.22em}
-.cta-dark{--ch:max(3.4722cqw,46px);position:relative;display:block;height:var(--ch);width:calc(var(--ch)*4.34);color:var(--accent);text-transform:uppercase;opacity:0}
+.g-lead{display:flex;flex-direction:column;gap:2.2cqw;margin-top:2.6cqw;max-width:max(36cqw,300px)}
+.report{font-size:max(1.25cqw,16px);text-transform:uppercase;line-height:1.15;column-gap:.22em}
+.g-facts{display:flex;flex-wrap:wrap;gap:.5rem;opacity:0}
+.g-facts span{font-size:max(.8333cqw,11px);text-transform:uppercase;border:1px solid var(--foreground);padding:.55em .8em .45em;line-height:1;letter-spacing:-.01em}
+.g-facts span b{color:var(--accent-ink);font-weight:700}
+.cta-dark{--ch:max(3.4722cqw,46px);position:relative;display:block;height:var(--ch);width:calc(var(--ch)*4.6);color:var(--accent);text-transform:uppercase;opacity:0}
 .cta-dark>svg.f{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .cta-dark .lbl{white-space:nowrap;position:absolute;top:0;bottom:0;left:calc(var(--ch)*24/50);display:flex;align-items:center;gap:calc(var(--ch)*24/50);font-size:calc(var(--ch)*18/50);line-height:.9;transition:color 250ms}
 .cta-dark .arr{width:calc(var(--ch)*13.71/50);height:calc(var(--ch)*10.71/50);stroke:currentColor;fill:none;transition:transform 150ms}
 .cta-dark .flood{transform-origin:left;transform:scaleX(0);transition:transform 250ms var(--ease-plate)}
 .cta-dark:hover .flood{transform:scaleX(1)}.cta-dark:hover .lbl{color:var(--surface-black)}.cta-dark:hover .arr{transform:translateX(.25rem)}
-.pad-panels{position:absolute;z-index:20;inset:0;pointer-events:none;--U:calc(100cqw/1440);--colW:calc(var(--U)*193);--colR:calc(2.2222cqw + var(--U)*12)}
-.frame{position:absolute;right:2.2222cqw;width:calc(var(--colW) + var(--U)*25);opacity:0}
-.frame svg{position:absolute;width:calc(var(--U)*10);height:calc(var(--U)*10);stroke:var(--foreground);fill:none}
-.f-tl{left:0;top:0;transform:rotate(270deg)}.f-tr{right:0;top:0}.f-br{right:0;bottom:0;transform:rotate(90deg)}.f-bl{left:0;bottom:0;transform:rotate(180deg)}
-.meet{position:absolute;right:var(--colR);top:calc(var(--U)*43);width:var(--colW);display:flex;flex-direction:column;gap:calc(var(--U)*6);font-size:max(calc(var(--U)*14),11px);text-transform:uppercase;line-height:.9;opacity:0}
-.meet b{font-weight:700}
-.pstats{position:absolute;right:var(--colR);top:calc(var(--U)*147);width:var(--colW)}
-.prow{display:flex;align-items:flex-end;gap:calc(var(--U)*24);height:calc(var(--U)*58);opacity:0}
-.prow svg{width:calc(var(--U)*31);height:calc(var(--U)*31);stroke:var(--foreground);fill:none;flex:none;stroke-width:1.2}
-.prow div{display:flex;flex-direction:column;gap:calc(var(--U)*9)}
-.prow small{font-size:max(calc(var(--U)*12),10px);text-transform:uppercase;letter-spacing:calc(var(--U)*-.48);color:var(--foreground-muted)}
-.prow strong{font-family:var(--font-display);font-weight:500;font-size:calc(var(--U)*38);line-height:.72;letter-spacing:calc(var(--U)*-2);column-gap:0;flex-wrap:nowrap}
-.prule{height:1px;background:var(--foreground-muted);margin:calc(var(--U)*24) 0 calc(var(--U)*23);transform-origin:left;transform:scaleX(0)}
-.cal{position:absolute;left:0;right:0;bottom:0;z-index:20;height:var(--band);color:var(--foreground-on-dark);--P:calc(100cqw/1440)}
+.g-photo{position:relative;margin:0;opacity:0}
+.g-photo .ph{position:relative;aspect-ratio:900/1125;overflow:hidden;background:var(--surface-black);clip-path:url(#plateClip)}
+.g-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.g-photo svg.o{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:var(--foreground);vector-effect:non-scaling-stroke;overflow:visible}
+.g-photo figcaption{margin-top:.8rem;font-size:max(.8333cqw,11px);text-transform:uppercase;color:var(--foreground-muted);display:flex;justify-content:space-between;gap:1rem}
+.g-grid{position:relative;z-index:20;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--P);margin:0 var(--G);border-top:1px solid var(--foreground)}
+.gc{position:relative;padding:1.8cqw 1.6cqw 2.2cqw;display:flex;flex-direction:column;gap:1.4cqw;opacity:0;transition:background 250ms var(--ease-entrance)}
+.gc+.gc{border-left:1px solid var(--border-muted)}
+.gc:hover{background:rgb(9 10 11/.03)}
+.gc-top{display:flex;justify-content:space-between;align-items:baseline}
+.gc-n{font-family:var(--font-display);font-weight:500;font-size:max(1.1cqw,14px);color:var(--foreground-muted)}
+.tag{font-size:max(.7639cqw,10px);font-weight:700;text-transform:uppercase;padding:.45em .7em .35em;line-height:1;letter-spacing:.04em}
+.tag.rare{background:var(--surface-black);color:var(--accent)}
+.tag.reg{border:1px solid var(--foreground)}
+.gc h3{font-family:var(--font-display);font-weight:700;text-transform:uppercase;line-height:.92;font-size:max(2.5cqw,30px);min-height:2em}
+.gc-what{font-size:max(.9722cqw,13px);line-height:1.35;color:#3a3d44;min-height:4.1em}
+.gc-big{display:flex;align-items:baseline;gap:.5em;padding:1cqw 0;border-top:1px solid var(--border-muted);border-bottom:1px solid var(--border-muted)}
+.gc-big strong{font-family:var(--font-display);font-weight:500;font-size:max(3.4cqw,40px);line-height:.8;letter-spacing:-.04em}
+.gc-big>span{font-size:max(.8333cqw,11px);text-transform:uppercase;color:var(--foreground-muted);line-height:1.2}
+.gc dl{display:flex;flex-direction:column}
+.gc dl div{display:grid;grid-template-columns:42% 1fr;gap:.75rem;padding:.62em 0;border-bottom:1px dashed var(--border-muted);font-size:max(.8333cqw,12px);text-transform:uppercase;line-height:1.2}
+.gc dt{color:var(--foreground-muted)}
+.gc dd{font-weight:500}
+.gc .ask{margin-top:auto;display:inline-flex;align-items:center;gap:.6em;font-size:max(.8333cqw,12px);text-transform:uppercase;font-weight:700;color:var(--accent-ink);pointer-events:auto}
+.gc .ask svg{width:.9em;height:.7em;stroke:currentColor;fill:none;transition:transform 150ms}
+.gc .ask:hover svg{transform:translateX(.25rem)}
+.g-note{position:relative;z-index:20;margin:1.6cqw var(--G) 0;padding-bottom:4cqw;display:flex;justify-content:space-between;gap:2rem;font-size:max(.8333cqw,11px);text-transform:uppercase;color:var(--foreground-muted);opacity:0}
+.cal{position:relative;z-index:20;height:calc(11.7361cqw*var(--band-scale,1));background:var(--surface-black);color:var(--foreground-on-dark)}
 .conn{position:absolute;top:calc(var(--P)*131.5*var(--band-scale,1));height:1px;transform-origin:left;transform:scaleX(0);background:repeating-linear-gradient(to right,var(--foreground-on-dark-muted) 0 calc(var(--P)*7),transparent calc(var(--P)*7) calc(var(--P)*11.45))}
 .card{position:absolute;top:calc(var(--P)*43*var(--band-scale,1));display:flex;flex-direction:column;align-items:center;gap:calc(var(--P)*12);text-transform:uppercase;text-align:center;opacity:0;pointer-events:auto}
 .card .rd{font-size:max(calc(var(--P)*12),10px);color:var(--foreground-on-dark-muted);letter-spacing:calc(var(--P)*-.24)}
@@ -319,25 +333,27 @@ html.lock{position:relative;overflow:hidden;height:100%}
 .livebr .b1{left:var(--sp,0px);top:var(--sp,0px);transform:rotate(270deg)}.livebr .b2{right:var(--sp,0px);top:var(--sp,0px)}
 .livebr .b3{right:var(--sp,0px);bottom:var(--sp,0px);transform:rotate(90deg)}.livebr .b4{left:var(--sp,0px);bottom:var(--sp,0px);transform:rotate(180deg)}
 .cal.open .livebr{--sp:calc(var(--P)*-5)}
-@media (min-width:640px) and (max-width:1023px){.pad{--band-scale:1.75;--head-min:12cqw;--copy-min-size:15px;--intro-min-w:44cqw}.pad-fig{--fig-x:74%}.pad-panels{--U:.8px}}
+@media (max-width:1023px){
+  .pad{--band-scale:1.75}
+  .g-top{grid-template-columns:1fr 38%;gap:5cqw}
+  .g-grid{grid-template-columns:repeat(2,1fr)}
+  .gc:nth-child(3){border-left:0}
+  .gc:nth-child(n+3){border-top:1px solid var(--border-muted)}
+  .gc{padding:2rem 1.5rem 2.25rem;gap:1rem}
+}
 @media (max-width:639px){
-  .pad{--block-h:auto;min-height:0;padding:0 0 0}
-  .pad-in{position:relative;display:flex;flex-direction:column}
-  .pad h2{position:relative;left:auto;top:auto;padding:3rem 24px 0;font-size:48px}
-  .fig-layer{position:relative;height:420px}
-  .pad-fig{height:100%;left:50%}
-  .melt{height:200px}
-  .pad-intro{position:relative;left:auto;bottom:auto;width:auto;padding:0 24px 2rem;background:var(--surface-black);color:#fff;z-index:20;gap:1.5rem}
-  .report{font-size:17px}
-  .pad-panels{display:none}
-  .band{display:none}
-  .cal{position:relative;height:auto;background:var(--surface-black);display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem .75rem;padding:1.5rem 4% 2.5rem;border-top:1px solid rgb(255 255 255/.15)}
+  .g-top{grid-template-columns:1fr;padding:3.5rem 24px 2rem;gap:2rem}
+  .g-photo{max-width:78%;margin-left:auto}
+  .g-grid{grid-template-columns:1fr;margin:0 24px}
+  .gc+.gc{border-left:0;border-top:1px solid var(--foreground)}
+  .gc{padding:1.75rem 0 2rem}
+  .gc h3,.gc-what{min-height:0}
+  .g-note{flex-direction:column;gap:.5rem;margin:1rem 24px 0;padding-bottom:2.5rem}
+  .cal{height:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem .75rem;padding:1.5rem 4% 2.5rem}
   .cal .card{position:relative;left:auto!important;width:auto!important;top:auto}
   .cal .card.early{display:none}
-  .melt{display:none}
   .conn,.mark,.livebr{display:none}
 }
-
 /* ---------- footer ---------- */
 .foot{container-type:inline-size;position:relative;isolation:isolate;min-height:var(--foot-h,100lvh);width:100%;overflow:hidden;background:var(--accent)}
 .foot-panel{position:absolute;inset:1.1111cqw;overflow:hidden;background:var(--surface-black);color:var(--foreground-on-dark)}
@@ -378,7 +394,7 @@ html.lock{position:relative;overflow:hidden;height:100%}
   .f-copy{bottom:1.5rem}
 }
 .errbar{position:fixed;left:0;right:0;bottom:0;z-index:99;background:#ff6b00;color:#000;font:12px/1.3 var(--font-sans);padding:.5rem 1rem}
-@media (prefers-reduced-motion:reduce){.tx>span,.rv,.plate,.cta-dark,.card,.mark,.prow,.meet,.frame,.f-foot>*,.f-logo,.veil-name,.cb,.rule{opacity:1!important;transform:none!important}}
+@media (prefers-reduced-motion:reduce){.tx>span,.rv,.plate,.cta-dark,.card,.mark,.prow,.meet,.frame,.f-foot>*,.f-logo,.veil-name,.cb,.rule,.gc,.g-facts,.g-photo,.g-note,.film-link{opacity:1!important;transform:none!important}}
 </style>
 </head>
 <body>
@@ -553,41 +569,38 @@ html.lock{position:relative;overflow:hidden;height:100%}
 <!-- 4 — GRADES -->
 <section class="pad" id="grades" aria-labelledby="gradesHead">
   <canvas class="contour" data-color="--paddock-contour" aria-hidden="true"></canvas>
-  <div class="pad-in">
-    <div class="band" aria-hidden="true"></div>
-    <div class="fig-layer" id="padFigLayer"><img class="pad-fig" src="assets/img/filtering.webp" alt="Oud oil being filtered through funnels into bottles at the Sujanagar distillery" loading="lazy" decoding="async"></div>
-    <div class="melt" aria-hidden="true"></div>
-    <canvas class="flag top" data-carry="dark" aria-hidden="true"></canvas>
-    <h2 id="gradesHead">
-      <span class="sr-only">The grades.</span>
-      <span class="tx" data-split="words" data-delay="0" aria-hidden="true">the</span>
-      <span style="display:flex" aria-hidden="true"><span class="tx" data-split="words" data-delay="130">grades</span><span class="dot-a rv" data-fade="240">.</span></span>
-    </h2>
-    <div class="pad-intro">
-      <p class="report tx" data-split="words" data-stagger="30" data-delay="350" data-cfg="copy">Three oils and the wood itself. Churon is rare. Classic Agar is our regular oil. Nothing is added after distillation.</p>
-      <a class="cta-dark wa" data-wa="grades" data-msg="Hi, I'd like samples of your oud oil." href="#" id="padCta">
-        <svg class="f" viewBox="0 0 217 50" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M.5 .5H216.5V42L209 49.5H.5Z" style="fill:var(--surface-black)"/>
-          <path class="flood" d="M.5 .5H216.5V42L209 49.5H.5Z" style="fill:var(--accent)"/>
-          <path d="M.5 .5H216.5V42L209 49.5H.5Z" fill="none" vector-effect="non-scaling-stroke" style="stroke:var(--accent)"/>
-        </svg>
-        <span class="lbl">ask for samples <svg class="arr" aria-hidden="true"><use href="#arrow"/></svg></span>
-      </a>
-    </div>
-
-    <div class="pad-panels" id="padPanels">
-      <div class="frame" id="frameMeet" style="top:calc(var(--U)*32);height:calc(var(--U)*73)">
-        <svg class="f-tl"><use href="#corner"/></svg><svg class="f-tr"><use href="#corner"/></svg><svg class="f-br"><use href="#corner"/></svg><svg class="f-bl"><use href="#corner"/></svg>
+  <canvas class="flag top" data-carry="dark" aria-hidden="true"></canvas>
+  <div class="g-top">
+    <div>
+      <h2 id="gradesHead">
+        <span class="sr-only">The grades.</span>
+        <span class="tx" data-split="words" data-delay="0" aria-hidden="true">the</span>
+        <span style="display:flex" aria-hidden="true"><span class="tx" data-split="words" data-delay="130">grades</span><span class="dot-a rv" data-fade="240">.</span></span>
+      </h2>
+      <div class="g-lead">
+        <p class="report tx" data-split="words" data-stagger="26" data-delay="300" data-cfg="copy">Three oils and the wood they come from. All distilled by us in Sujanagar from nail-induced agarwood we buy from local growers.</p>
+        <p class="g-facts" id="gFacts"><span>Nothing added <b>after distillation</b></span><span>No mixing <b>at any stage</b></span><span>Factory visits <b>by appointment</b></span></p>
+        <a class="cta-dark wa" data-wa="grades" data-msg="Hi, I'd like samples of your oud oil. Grade(s): " href="#" id="padCta">
+          <svg class="f" viewBox="0 0 217 50" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M.5 .5H216.5V42L209 49.5H.5Z" style="fill:var(--surface-black)"/>
+            <path class="flood" d="M.5 .5H216.5V42L209 49.5H.5Z" style="fill:var(--accent)"/>
+            <path d="M.5 .5H216.5V42L209 49.5H.5Z" fill="none" vector-effect="non-scaling-stroke" style="stroke:var(--accent)"/>
+          </svg>
+          <span class="lbl">ask for samples <svg class="arr" aria-hidden="true"><use href="#arrow"/></svg></span>
+        </a>
       </div>
-      <div class="meet" id="meet"><b>visit the factory</b><span>sujanagar, barlekha</span><span>by appointment</span></div>
-      <div class="frame" id="frameStats" style="top:calc(var(--U)*137);height:calc(var(--U)*398)">
-        <svg class="f-tl"><use href="#corner"/></svg><svg class="f-tr"><use href="#corner"/></svg><svg class="f-br"><use href="#corner"/></svg><svg class="f-bl"><use href="#corner"/></svg>
-      </div>
-      <div class="pstats" id="pstats"></div>
     </div>
-
-    <div class="cal" id="wholesale" aria-label="Sizes and order quantities"></div>
+    <figure class="g-photo" id="gPhoto">
+      <div class="ph"><img src="assets/img/bottling.webp" alt="Oud oil running through a steel funnel into a glass bottle at the Sujanagar distillery" loading="lazy" decoding="async"></div>
+      <svg class="o" viewBox="0 0 710.995 462.995" preserveAspectRatio="none" aria-hidden="true"><path d="M24 .5H710.5V416L698.5 416V438.5L686.5 438.5V462.5H.5V46.5L12.5 46.5V24L24.5 24Z" vector-effect="non-scaling-stroke"/></svg>
+      <figcaption><span>Bottling at the distillery</span><span>Real photo</span></figcaption>
+    </figure>
   </div>
+
+  <div class="g-grid" id="gGrid" role="list"></div>
+  <p class="g-note" id="gNote"><span>Prices change with each batch. Send the grade and quantity on WhatsApp for today's price and stock.</span><span>1 tola ≈ 11.66 g</span></p>
+
+  <div class="cal" id="wholesale" aria-label="Sizes and order quantities"></div>
 </section>
 
 <!-- 5 — CONTACT (footer) -->
@@ -657,11 +670,15 @@ const STEPS = [
   { n:"06", t:"Collecting", b:"Oil rises to the top of the receiving pot and is skimmed off by hand, a little at a time.", img:"step-06", alt:"Oud oil being skimmed from water with a steel scoop" },
   { n:"07", t:"Filtering", b:"The oil is filtered and left to settle, then bottled. Nothing is added after distillation.", img:"step-07", alt:"Oil filtering through funnels into glass bottles" },
 ];
-const GRADE_ROWS = [
-  { icon:"drop", label:"original churon", fig:"3–4×" },
-  { icon:"bars", label:"luha churon", fig:"LTD." },
-  { icon:"flame", label:"classic agar · harvests/yr", fig:"~100" },
-  { icon:"chip", label:"agarwood chips", fig:"BULK" },
+const GRADES = [
+  { n:"01", name:"Original Churon Oud", tag:"rare", tagL:"Rare", what:"A churon grade. Made only a few times a year and offered when a batch is ready.",
+    big:"3–4", bigL:"distillations a year", rows:[["Availability","Occasional, ask first"],["Samples","6 ml · 12 ml"],["Wholesale","From 120 g (≈10 tola)"],["Bulk","½–1 litre, lab test on request"],["After distillation","Nothing added"]], msg:"Original Churon Oud" },
+  { n:"02", name:"Luha Churon Oud", tag:"rare", tagL:"Rare", what:"Also called Perek churon. A churon grade, made in small runs and only now and then.",
+    big:"3–4", bigL:"distillations a year", rows:[["Availability","Occasional, ask first"],["Samples","6 ml · 12 ml"],["Wholesale","From 120 g (≈10 tola)"],["Bulk","½–1 litre, lab test on request"],["After distillation","Nothing added"]], msg:"Luha Churon Oud" },
+  { n:"03", name:"Classic Agar Oud", tag:"reg", tagL:"Regular", what:"Our regular oil, distilled from nail-induced agarwood throughout the year.",
+    big:"~100", bigL:"harvests a year", rows:[["Availability","Year-round"],["Samples","6 ml · 12 ml"],["Wholesale","From 120 g (≈10 tola)"],["Bulk","½–1 litre, lab test on request"],["After distillation","Nothing added"]], msg:"Classic Agar Oud" },
+  { n:"04", name:"Agarwood Chips", tag:"reg", tagL:"Regular", what:"Resin-filled pieces carved by hand from the same wood we distil. For burning or resale.",
+    big:"kg", bigL:"sold by weight", rows:[["Availability","Year-round"],["Cut","Hand-carved by our workers"],["Source","Nail-induced agarwood"],["Order","By weight, ask for a quote"],["Visit","See the wood at the factory"]], msg:"Agarwood chips" },
 ];
 const CARDS = [ // x, w are design px in a 1440 frame
   { rd:"sample", nm:"6 ml", dt:"trial bottle", x:347, w:100, mk:"try" },
@@ -1000,13 +1017,17 @@ function createHero(){
   let W = 0, H = 0, dpr = 1, bottle = [0,0,0,0], smoke = [0,0,0,0], radius = 0;
   const BOTTLE_AR = 440 / 1270, SMOKE_AR = 1100 / 1650;
   function layout(){
-    dpr = mobileTier ? 1 : Math.min(devicePixelRatio, 2);
+    // phones are sharp too: render at the screen's own density (capped at 2)
+    dpr = Math.min(devicePixelRatio, 2);
     W = hero.clientWidth; H = hero.clientHeight; canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
     gl.viewport(0, 0, canvas.width, canvas.height);
     let bh, bx, by;
-    if (fitbox.offsetParent !== null) { const s = hero.getBoundingClientRect(), b = fitbox.getBoundingClientRect();
-      bh = Math.min(b.height * 0.96, b.width * 0.9 / BOTTLE_AR); by = (b.bottom - s.top) - bh; bx = (b.left + b.width / 2 - s.left) - bh * BOTTLE_AR / 2;
-      if (innerWidth >= 768) bx += Math.min(W * 0.06, 60);
+    if (innerWidth < 1280) {
+      // below xl the bottle gets the free band between the meta rows and the actions row, never under the copy
+      const s = hero.getBoundingClientRect(), meta = $(".meta", hero).getBoundingClientRect(), act = $("#heroActions").getBoundingClientRect();
+      const top = meta.bottom - s.top + 18, bottom = act.top - s.top - 14, room = bottom - top;
+      if (room > H * 0.3) { bh = Math.min(room, W * 0.8 / BOTTLE_AR); by = bottom - bh; bx = W / 2 - bh * BOTTLE_AR / 2; }
+      else { const b = fitbox.getBoundingClientRect(); bh = Math.min(b.height * 0.96, b.width * 0.9 / BOTTLE_AR); by = (b.bottom - s.top) - bh; bx = (b.left + b.width / 2 - s.left) - bh * BOTTLE_AR / 2; }
     } else { bh = H * 0.8; by = H * 0.13; bx = W / 2 - bh * BOTTLE_AR / 2; }
     bottle = [bx, by, bh * BOTTLE_AR, bh];
     const sh_ = Math.max(H * 1.15, W / SMOKE_AR * 0.62); smoke = [bx + bh * BOTTLE_AR / 2 - sh_ * SMOKE_AR / 2, by - sh_ * 0.62, sh_ * SMOKE_AR, sh_];
@@ -1014,6 +1035,7 @@ function createHero(){
     gl.uniform4fv(U.uBottle, bottle); gl.uniform4fv(U.uSmoke, smoke); gl.uniform2f(U.uRes, W, H); gl.uniform1f(U.uDpr, dpr);
     gl.uniform1f(U.uWave, mobileTier ? 0 : 1);
   }
+  document.fonts && document.fonts.ready.then(() => layout()); setTimeout(() => layout(), 2600);
   let roRaf = 0; new ResizeObserver(() => { if (!roRaf) roRaf = requestAnimationFrame(() => { roRaf = 0; layout(); }); }).observe(hero);
 
   // pointer
@@ -1051,7 +1073,7 @@ function createHero(){
     let inView = true, tail = 0; new IntersectionObserver((es) => { inView = es[0].isIntersecting; if (!inView) tail = 10; }).observe(hero);
     subscribe((time) => { if (document.hidden || scrollY > innerHeight * 1.15) return; if (!inView) { if (tail <= 0) return; tail--; } if (reduced && state.intro >= 1 && state.rise === 0 && state._frozen) return; render(time); if (reduced && state.intro >= 1 && state.rise === 0) state._frozen = true; }, () => (mobileTier ? 1000 / 60 - 2 : 0));
   });
-  state.beginRise = () => { const n = performance.now(); state.riseStart = n; state.introStart = n; };
+  state.beginRise = () => { const n = performance.now(); state.riseStart = n; state.introStart = mobileTier ? n - 4000 : n; };
   return state;
 }
 
@@ -1180,21 +1202,22 @@ function createTimeline(){
   onArrive($("#steps"), () => revealBlock($("#stepsHead")), "0% 0% -30% 0%");
 }
 
-/* ================= grades (paddock) ================= */
-const ICONS = {
-  drop: '<path d="M15.5 3C15.5 3 7 13.5 7 19.5A8.5 8.5 0 0 0 24 19.5C24 13.5 15.5 3 15.5 3Z"/><path d="M11.5 20.5A4 4 0 0 0 15.5 24.5"/>',
-  bars: '<path d="M4 27V17M10.5 27V11M17 27V14M23.5 27V5"/>',
-  flame: '<path d="M15.5 3C17 9 23 11 23 19A7.5 7.5 0 0 1 8 19C8 14 11 12 11.5 8C14 10 14.5 12 14.5 14C16.5 11 16.5 7 15.5 3Z"/>',
-  chip: '<path d="M5 22L11 6L15 10L19 5L26 18L20 26L13 23L9 27Z"/><path d="M11 6L13 23M19 5L20 26"/>',
-};
+/* ================= grades ================= */
 function createGrades(){
-  const pstats = $("#pstats");
-  GRADE_ROWS.forEach((r, i) => {
-    if (i) { const rule = document.createElement("div"); rule.className = "prule"; pstats.appendChild(rule); }
-    const row = document.createElement("div"); row.className = "prow";
-    row.innerHTML = `<svg viewBox="0 0 31 31" aria-hidden="true">${ICONS[r.icon]}</svg><div><small>${r.label}</small><strong data-split="letters" data-stagger="24" data-cfg="figure">${r.fig}</strong></div>`;
-    pstats.appendChild(row);
+  const grid = $("#gGrid");
+  GRADES.forEach((g) => {
+    const el = document.createElement("article"); el.className = "gc"; el.setAttribute("role", "listitem");
+    el.innerHTML = `<div class="gc-top"><span class="gc-n">${g.n}</span><span class="tag ${g.tag}">${g.tagL}</span></div>
+      <h3>${g.name}</h3><p class="gc-what">${g.what}</p>
+      <div class="gc-big"><strong data-split="letters" data-stagger="40" data-cfg="figure">${g.big}</strong><span>${g.bigL}</span></div>
+      <dl>${g.rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
+      <a class="ask wa" data-wa="grade-${g.n}" data-msg="Hi, I'm interested in ${g.msg}. Quantity: " href="#">ask about this grade <svg aria-hidden="true"><use href="#arrow"/></svg></a>`;
+    grid.appendChild(el);
   });
+  // the new WhatsApp links need the same wiring as the rest
+  $$(".wa", grid).forEach((a) => { a.href = waUrl(a.dataset.msg); a.target = "_blank"; a.rel = "noopener";
+    a.addEventListener("click", () => { window.dataLayer.push({ event:"whatsapp_click", wa_location:a.dataset.wa }); window.dataLayer.push({ event:"generate_lead", lead_source:"whatsapp", wa_location:a.dataset.wa }); }); });
+
   const cal = $("#wholesale");
   const spread = (x) => `calc(50% + (${x} - 720) * 100cqw / 1440 * var(--cal-spread, 1))`;
   const LIVE = CARDS.findIndex((c) => c.mk === "live");
@@ -1213,24 +1236,23 @@ function createGrades(){
 
   const pad = $("#grades");
   onArrive(pad, () => {
-    revealBlock($("#gradesHead")); playText($(".report", pad)); rise($("#padCta"), { delay: 520, cfg: CFG.reveal, y: "0.75rem" });
-    rise($("#frameMeet"), { delay: 320, y: "0" }); rise($("#meet"), { delay: 410, y: "0.75rem" }); rise($("#frameStats"), { delay: 460, y: "0" });
-    $$(".prule", pad).forEach((r, i) => rise(r, { delay: 460 + (i + 1) * 90, scale: true }));
-    $$(".prow", pad).forEach((r, i) => { rise(r, { delay: 460 + i * 90 + 40, y: "0.75rem" }); playText($("strong", r), 460 + i * 90 + 120); });
-  }, "0% 0% -25% 0%");
+    revealBlock($("#gradesHead")); playText($(".report", pad));
+    rise($("#gFacts"), { delay: 520, y: "0.75rem" }); rise($("#padCta"), { delay: 640, y: "0.75rem" }); rise($("#gPhoto"), { delay: 260, y: "1.25rem" });
+  }, "0% 0% -20% 0%");
+  onArrive(grid, () => {
+    $$(".gc", grid).forEach((c, i) => { rise(c, { delay: i * 110, y: "1.25rem" }); playText($(".gc-big strong", c), i * 110 + 220); });
+    rise($("#gNote"), { delay: 560, y: "0.5rem" });
+  }, "0% 0% -15% 0%");
   onArrive(cal, () => {
-    $$(".conn", cal).forEach((c, i) => rise(c, { delay: 560 + i * 90, scale: true }));
-    $$(".card", cal).forEach((c, i) => rise(c, { delay: 560 + i * 90, y: "0.5rem" }));
-    $$(".mark", cal).forEach((m, i) => rise(m, { delay: 560 + i * 90 + 60, y: "0" }));
-    rise(br, { delay: 560 + 5 * 90, y: "0" });
+    $$(".conn", cal).forEach((c, i) => rise(c, { delay: 300 + i * 90, scale: true }));
+    $$(".card", cal).forEach((c, i) => rise(c, { delay: 300 + i * 90, y: "0.5rem" }));
+    $$(".mark", cal).forEach((m, i) => rise(m, { delay: 360 + i * 90, y: "0" }));
+    rise(br, { delay: 300 + 5 * 90, y: "0" });
   }, "0% 0% 0% 0%");
-  // crawls and pulse
   const conns = $$(".conn", cal), pulse = $(".pulse", cal);
   subscribe((time) => { if (reduced) return; const k = (time % 5200) / 5200; const P = cal.clientWidth / 1440 * 11.45;
     conns.forEach((c) => c.style.backgroundPositionX = `${c.dataset.dir * k * P}px`);
     if (pulse) { const v = (time % 3200) / 3200; const e = 1 - (1 - v) * (1 - v); pulse.setAttribute("r", 5.5 + e * 5.5 * 3.4); pulse.setAttribute("opacity", 0.5 * (1 - e) * (1 - e)); } }, () => 1000 / 30);
-  // the portrait rises 48 design px over the block's crossing
-  const fig = $("#padFigLayer"); trigger(pad, "top_bottom", "bottom_top", (p) => { if (mq("(max-width: 639px)").matches) { fig.style.transform = ""; return; } fig.style.transform = `translateY(${-p * 48 * pad.clientWidth / 1440}px)`; });
 }
 
 /* ================= footer ================= */
